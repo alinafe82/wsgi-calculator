@@ -39,7 +39,7 @@ html_text = """<html>
 <title>WSGI Calulator </title>
 </head>
 <body>
-<h1>{print_op_a} {print_operation_sign} {print_op_b}
+<h1>{print_op_a} {print_op_sign} {print_op_b}
 = {print_result}</h1>
 <hr>
 <h3>Some Examples</h3>
@@ -117,7 +117,7 @@ def app(environ, start_response):
             print_path=path,
             print_no_entries=len(args),
             print_op=oper,
-            print_operation_sign=op_sign,
+            print_op_sign=op_sign,
             print_op_a=op_a,
             print_op_b=op_b,
             print_result=result
