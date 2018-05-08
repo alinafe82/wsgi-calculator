@@ -11,7 +11,7 @@ You'll need to support:
   * Division
 Your users should be able to send appropriate requests and get back
 proper responses. For example, if I open a browser to your wsgi
-application at `http://localhost:8080/multiple/3/5' then the response
+application at `http://localhost:8090/multiple/3/5' then the response
 body in my browser should be `15`.
 Consider the following URL/Response body pairs as tests:
 ```
@@ -51,7 +51,7 @@ html_text = """<html>
 <p><a href="http://localhost:8090/subtract/123/0">subtract/123/0</a></p>
 <hr>
 <p>Path Info: {print_path_info} Entries: {print_no_entries}</p>
-<p>Operation: {print_operation} First Operand: {print_operand_a}
+<p>oper: {print_operation} First Operand: {print_operand_a}
 Second Operand: {print_operand_b}</p>
 </body>
 </html>"""
@@ -76,9 +76,9 @@ def application(environ, start_response):
         ops = ["multiply", "divide", "add", "subtract"]
 
         if args[0].strip() in ops:
-            operation = args[0].strip()
+            oper = args[0].strip()
         else:
-            operation = "failed"
+            oper = "failed"
             op_sign = "f"
 
         try:
@@ -91,23 +91,23 @@ def application(environ, start_response):
         except:
             op_b = "error"
 
-        if operation == "multiply":
+        if oper == "multiply":
             result = op_a * op_b
             op_sign = "*"
-        elif operation == "divide":
+        elif oper == "divide":
             if op_b == 0:
                 result = "can't divide by zero"
                 op_sign = "/"
             else:
                 result = op_a / op_b
                 op_sign = "/"
-        elif operation == "add":
+        elif oper == "add":
             result = op_a + op_b
             op_sign = "+"
-        elif operation == "subtract":
+        elif oper == "subtract":
             result = op_a - op_b
             op_sign = "-"
-        elif operation == "failed":
+        elif oper == "failed":
             result = "error - please try again"
             op_sign = "f"
         else:
@@ -116,7 +116,7 @@ def application(environ, start_response):
         body = html_text.format(
             print_path_info=path,
             print_no_entries=len(args),
-            print_operation=operation,
+            print_operation=oper,
             print_operation_sign=op_sign,
             print_operand_a=op_a,
             print_operand_b=op_b,
@@ -130,7 +130,7 @@ def application(environ, start_response):
 
     except Exception:
         status = "500 Internal Server Error"
-        body = "<h1>Internal Server Error</h1>"
+        body = "<h1>Internal Server Error, check the code!</h1>"
     finally:
         headers.append(('Content-length', str(len(body))))
         start_response(status, headers)
