@@ -128,6 +128,10 @@ def app(environ, start_response):
         status = "404 Not Found"
         body = "<h1>Not Found</h1>"
 
+    except ValueError:
+        status = "400 Bad Request"
+        body = "<h1>Bad Request</h1>"
+
     except Exception:
         status = "500 Internal Server Error"
         body = "<h1>Internal Server Error, check the code!</h1>"
@@ -144,5 +148,5 @@ def resolve_path(path):
 
 if __name__ == '__main__':
     from wsgiref.simple_server import make_server
-    srv = make_server('localhost', 8090, application)
+    srv = make_server('localhost', 8090, app)
     srv.serve_forever()
