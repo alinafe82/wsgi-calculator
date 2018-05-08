@@ -58,6 +58,8 @@ Second Operand: {print_operand_b}</p>
 
 
 def application(environ, start_response):
+    import pprint
+    pprint.pprint(environ)
     headers = [("Content-type", "text/html")]
     try:
         path = environ.get('PATH_INFO', None)
@@ -67,58 +69,57 @@ def application(environ, start_response):
         args = resolve_path(path)
 
         if len(args) != 3:
-            operation = "failed"
-            operation_sign = "f"
+            op_sign = "f"
         else:
             pass
 
-        operation_list = ["multiply", "divide", "add", "subtract"]
+        ops = ["multiply", "divide", "add", "subtract"]
 
-        if args[0].strip() in operation_list:
+        if args[0].strip() in ops:
             operation = args[0].strip()
         else:
             operation = "failed"
-            operation_sign = "f"
+            op_sign = "f"
 
         try:
-            operand_a = int(args[1])
+            op_a = int(args[1])
         except:
-            operand_a = "error"
+            op_a = "error"
 
         try:
-            operand_b = int(args[2])
+            op_b = int(args[2])
         except:
-            operand_b = "error"
+            op_b = "error"
 
         if operation == "multiply":
-            result = operand_a * operand_b
-            operation_sign = "*"
+            result = op_a * op_b
+            op_sign = "*"
         elif operation == "divide":
-            if operand_b == 0:
-                result = "bad request - can't divide by zero"
-                operation_sign = "/"
+            if op_b == 0:
+                result = "can't divide by zero"
+                op_sign = "/"
             else:
-                result = operand_a / operand_b
-                operation_sign = "/"
+                result = op_a / op_b
+                op_sign = "/"
         elif operation == "add":
-            result = operand_a + operand_b
-            operation_sign = "+"
+            result = op_a + op_b
+            op_sign = "+"
         elif operation == "subtract":
-            result = operand_a - operand_b
-            operation_sign = "-"
+            result = op_a - op_b
+            op_sign = "-"
         elif operation == "failed":
             result = "error - please try again"
-            operation_sign = "f"
+            op_sign = "f"
         else:
-            result = "failer"
+            result = "failed"
 
         body = html_text.format(
             print_path_info=path,
             print_no_entries=len(args),
             print_operation=operation,
-            print_operation_sign=operation_sign,
-            print_operand_a=operand_a,
-            print_operand_b=operand_b,
+            print_operation_sign=op_sign,
+            print_operand_a=op_a,
+            print_operand_b=op_b,
             print_result=result
         )
         status = "200 OK"
