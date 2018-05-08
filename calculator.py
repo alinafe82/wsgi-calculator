@@ -39,7 +39,7 @@ html_text = """<html>
 <title>WSGI Calulator </title>
 </head>
 <body>
-<h1>{print_operand_a} {print_operation_sign} {print_operand_b}
+<h1>{print_op_a} {print_operation_sign} {print_op_b}
 = {print_result}</h1>
 <hr>
 <h3>Some Examples</h3>
@@ -51,8 +51,8 @@ html_text = """<html>
 <p><a href="http://localhost:8090/subtract/123/0">subtract/123/0</a></p>
 <hr>
 <p>Path Info: {print_path_info} Entries: {print_no_entries}</p>
-<p>oper: {print_operation} First Operand: {print_operand_a}
-Second Operand: {print_operand_b}</p>
+<p>operation: {print_op} First Op: {print_op_a}
+Second Op: {print_op_b}</p>
 </body>
 </html>"""
 
@@ -91,13 +91,7 @@ def application(environ, start_response):
         except:
             op_b = "error"
 
-        if oper == "add":
-            result = op_a + op_b
-            op_sign = "+"
-        elif oper == "subtract":
-            result = op_a - op_b
-            op_sign = "-"
-        elif oper == "multiply":
+        if oper == "multiply":
             result = op_a * op_b
             op_sign = "*"
         elif oper == "divide":
@@ -107,6 +101,12 @@ def application(environ, start_response):
             else:
                 result = op_a / op_b
                 op_sign = "/"
+        elif oper == "add":
+            result = op_a + op_b
+            op_sign = "+"
+        elif oper == "subtract":
+            result = op_a - op_b
+            op_sign = "-"
         elif oper == "failed":
             result = "error - please try again"
             op_sign = "f"
@@ -116,10 +116,10 @@ def application(environ, start_response):
         body = html_text.format(
             print_path_info=path,
             print_no_entries=len(args),
-            print_operation=oper,
+            print_op=oper,
             print_operation_sign=op_sign,
-            print_operand_a=op_a,
-            print_operand_b=op_b,
+            print_op_a=op_a,
+            print_op_b=op_b,
             print_result=result
         )
         status = "200 OK"
