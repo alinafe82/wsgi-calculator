@@ -42,13 +42,13 @@ html_text = """<html>
 <h1>{print_op_a} {print_op_sign} {print_op_b}
 = {print_result}</h1>
 <hr>
-<h3>Some Examples</h3>
-<p><a href="http://localhost:8090/add/23/42">add/23/42</a></p>
-<p><a href="http://localhost:8090/divide/6/0">divide/6/0</a></p>
-<p><a href="http://localhost:8090/subtract/126/21">subtract/126/21</a></p>
-<p><a href="http://localhost:8090/multiply/3/5">multiply/3/5</a></p>
-<p><a href="http://localhost:8090/divide/4223/17">divide/4223/17</a></p>
-<p><a href="http://localhost:8090/subtract/123/0">subtract/123/0</a></p>
+<h3>Try links below</h3>
+<p><a href="http://localhost:8090/add/2/10">add/2/10</a></p>
+<p><a href="http://localhost:8090/divide/4/0">divide/4/0</a></p>
+<p><a href="http://localhost:8090/subtract/1300/30">subtract/1300/30</a></p>
+<p><a href="http://localhost:8090/multiply/4/7">multiply/4/7</a></p>
+<p><a href="http://localhost:8090/divide/42/6">divide/42/6</a></p>
+<p><a href="http://localhost:8090/subtract/12/0">subtract/12/0</a></p>
 <hr>
 <p>Path Info: {print_path} Entries: {print_no_entries}</p>
 <p>Operation: {print_op} First Op: {print_op_a}
