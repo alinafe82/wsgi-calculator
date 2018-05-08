@@ -91,7 +91,13 @@ def application(environ, start_response):
         except:
             op_b = "error"
 
-        if oper == "multiply":
+        if oper == "add":
+            result = op_a + op_b
+            op_sign = "+"
+        elif oper == "subtract":
+            result = op_a - op_b
+            op_sign = "-"
+        elif oper == "multiply":
             result = op_a * op_b
             op_sign = "*"
         elif oper == "divide":
@@ -101,12 +107,6 @@ def application(environ, start_response):
             else:
                 result = op_a / op_b
                 op_sign = "/"
-        elif oper == "add":
-            result = op_a + op_b
-            op_sign = "+"
-        elif oper == "subtract":
-            result = op_a - op_b
-            op_sign = "-"
         elif oper == "failed":
             result = "error - please try again"
             op_sign = "f"
