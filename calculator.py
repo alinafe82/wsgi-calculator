@@ -43,21 +43,21 @@ html_text = """<html>
 = {print_result}</h1>
 <hr>
 <h3>Some Examples</h3>
-<p><a href="http://localhost:8090/multiply/3/5">multiply/3/5</a></p>
 <p><a href="http://localhost:8090/add/23/42">add/23/42</a></p>
 <p><a href="http://localhost:8090/divide/6/0">divide/6/0</a></p>
 <p><a href="http://localhost:8090/subtract/126/21">subtract/126/21</a></p>
+<p><a href="http://localhost:8090/multiply/3/5">multiply/3/5</a></p>
 <p><a href="http://localhost:8090/divide/4223/17">divide/4223/17</a></p>
 <p><a href="http://localhost:8090/subtract/123/0">subtract/123/0</a></p>
 <hr>
-<p>Path Info: {print_path_info} Entries: {print_no_entries}</p>
-<p>operation: {print_op} First Op: {print_op_a}
+<p>Path Info: {print_path} Entries: {print_no_entries}</p>
+<p>Operation: {print_op} First Op: {print_op_a}
 Second Op: {print_op_b}</p>
 </body>
 </html>"""
 
 
-def application(environ, start_response):
+def app(environ, start_response):
     import pprint
     pprint.pprint(environ)
     headers = [("Content-type", "text/html")]
@@ -114,7 +114,7 @@ def application(environ, start_response):
             result = "failed"
 
         body = html_text.format(
-            print_path_info=path,
+            print_path=path,
             print_no_entries=len(args),
             print_op=oper,
             print_operation_sign=op_sign,
